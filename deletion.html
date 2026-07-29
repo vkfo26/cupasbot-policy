@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CUPAS BOT 사용자 데이터 삭제 안내">
+  <title>사용자 데이터 삭제 | CUPAS BOT</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell document">
+    <a class="back" href="index.html">← 정책 홈</a>
+    <header>
+      <p class="eyebrow">CUPAS BOT</p>
+      <h1>사용자 데이터 삭제 안내</h1>
+      <p class="lead">Threads 연동, 로컬 설정 및 라이선스 관련 데이터의 삭제 방법입니다.</p>
+    </header>
+
+    <section>
+      <h2>1. Threads 계정 연동 삭제</h2>
+      <ol>
+        <li>연동된 Discord 채널에서 <code>/계정삭제</code> 명령을 실행합니다.</li>
+        <li>“계정을 삭제하시겠습니까?” 안내에서 <strong>예</strong>를 선택합니다.</li>
+        <li>해당 채널의 Threads 토큰, 프록시 매핑 및 계정 표시 정보가 로컬 파일에서 삭제됩니다.</li>
+        <li>필요한 경우 Meta 계정의 앱 및 웹사이트 설정에서 CUPAS BOT 앱의 접근 권한도 철회합니다.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>2. Discord 서버 바인딩 삭제</h2>
+      <ol>
+        <li>바인딩된 Discord 서버에서 <code>/리셋</code> 명령을 실행합니다.</li>
+        <li>확인 절차를 완료하면 서버 바인딩이 해제되고 봇이 서버에서 나갑니다.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>3. PC에 저장된 데이터 삭제</h2>
+      <p>CUPAS BOT을 완전히 종료한 뒤 프로그램 폴더의 설정 파일과 템플릿을 삭제할 수 있습니다. 숨김 상태 파일까지 모두 제거하려면 Windows의 다음 폴더도 삭제하세요.</p>
+      <pre><code>%LOCALAPPDATA%\CUPAS_BOT</code></pre>
+      <p>삭제 전에 재사용할 템플릿이 있다면 별도로 백업하세요. 삭제한 토큰과 설정은 복구되지 않습니다.</p>
+    </section>
+
+    <section>
+      <h2>4. 운영자에게 삭제 요청</h2>
+      <p>라이선스 서버에 저장된 정보의 열람 또는 삭제를 요청하려면 <a href="mailto:vkfo262@icloud.com">vkfo262@icloud.com</a>으로 연락하세요.</p>
+      <p>본인 확인을 위해 다음 정보만 보내주세요.</p>
+      <ul>
+        <li>구매 시 사용한 이메일</li>
+        <li>라이선스 키의 마지막 6자리(전체 키를 보내지 마세요)</li>
+        <li>바인딩했던 Discord 서버 ID</li>
+      </ul>
+      <p>요청 확인 후 법령 또는 분쟁 대응을 위해 보관해야 하는 정보를 제외하고 합리적인 기간 내 삭제 결과를 안내합니다.</p>
+    </section>
+
+    <section>
+      <h2>5. 삭제 후 영향</h2>
+      <p>Threads 연동 데이터가 삭제되면 게시, 예약, 인사이트 및 모니터링 기능을 사용할 수 없습니다. 다시 사용하려면 해당 채널에서 <code>/쓰레드연동</code>을 실행해야 합니다.</p>
+    </section>
+  </main>
+</body>
+</html>
