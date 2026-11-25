@@ -1,0 +1,1327 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF">
+<title>살롱 어바이드 — Daily Picks</title>
+<meta name="description" content="살롱 어바이드 리뉴얼 시안 · 헤어 테스트, 오늘의 운세, My Tray">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --bg:#FFFFFF;
+  --surface:#F5F5F7;
+  --ink:#111111;
+  --ink-2:#5F5F66;
+  --ink-3:#9A9AA2;
+  --line:#EAEAEA;
+  --line-2:#DCDCDE;
+  --r:20px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Helvetica Neue",Arial,sans-serif;
+  font-size:15px;line-height:1.55;letter-spacing:-0.012em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+body.lock{overflow:hidden}
+h1,h2,h3,p,ul,li,figure{margin:0;padding:0}
+ul{list-style:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;letter-spacing:inherit}
+button:disabled{cursor:default}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:6px}
+::selection{background:#111;color:#fff}
+
+.wrap{max-width:440px;margin:0 auto;min-height:100vh;padding-bottom:132px;position:relative}
+
+/* ── header ─────────────────────────────── */
+.head{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.9);
+  -webkit-backdrop-filter:saturate(180%) blur(16px);backdrop-filter:saturate(180%) blur(16px);
+  border-bottom:1px solid transparent;transition:border-color .25s}
+.head.scrolled{border-bottom-color:var(--line)}
+.head-in{display:flex;align-items:center;justify-content:space-between;padding:15px 20px 10px}
+.brand{font-size:11.5px;font-weight:650;letter-spacing:.19em;color:var(--ink)}
+.brand span{color:var(--ink-3);letter-spacing:.02em;font-weight:500;margin-left:2px}
+.lang{height:28px;padding:0 11px;border:1px solid var(--line);background:#fff;border-radius:999px;
+  font-size:10.5px;font-weight:650;letter-spacing:.06em;color:var(--ink-2)}
+.tabs{display:flex;gap:5px;overflow-x:auto;padding:0 16px 12px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:600;
+  color:var(--ink-3);white-space:nowrap;transition:background .2s,color .2s}
+.tab.is-active{background:var(--ink);color:#fff}
+
+/* ── views ──────────────────────────────── */
+.view{display:none;padding:0 20px}
+.view.is-active{display:block;animation:fade .28s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.greet{padding:14px 0 2px}
+.greet .date{font-size:12px;color:var(--ink-3);letter-spacing:.01em}
+.greet .quote{margin-top:7px;font-size:17px;font-weight:650;line-height:1.5;letter-spacing:-0.028em}
+
+.section{margin-top:26px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px}
+.sec-title{font-size:15.5px;font-weight:700;letter-spacing:-0.022em}
+.sec-meta{font-size:11.5px;color:var(--ink-3);letter-spacing:0}
+
+/* hero test card */
+.hero{display:block;width:100%;text-align:left;position:relative;overflow:hidden;
+  background:var(--ink);color:#fff;border-radius:22px;padding:20px 20px 18px;
+  transition:transform .18s ease}
+.hero:active{transform:scale(.988)}
+.hero::after{content:"";position:absolute;right:-46px;bottom:-70px;width:184px;height:184px;
+  border:1px solid rgba(255,255,255,.15);border-radius:50%}
+.hero::before{content:"";position:absolute;right:16px;top:-56px;width:112px;height:112px;
+  border:1px solid rgba(255,255,255,.09);border-radius:50%}
+.hero-kicker{display:block;font-size:10px;font-weight:650;letter-spacing:.18em;color:rgba(255,255,255,.52)}
+.hero-title{display:block;margin-top:9px;font-size:20.5px;font-weight:700;letter-spacing:-0.03em}
+.hero-sub{display:block;margin-top:7px;font-size:12.5px;color:rgba(255,255,255,.6);letter-spacing:-0.005em}
+.hero-cta{display:inline-flex;align-items:center;gap:5px;margin-top:17px;background:#fff;color:#111;
+  border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:650}
+.hero-cta svg{width:11px;height:11px}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
+.mini{display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:104px;
+  background:var(--surface);border-radius:18px;padding:15px 15px 14px;text-align:left;
+  transition:transform .18s ease}
+.mini:active{transform:scale(.985)}
+.mini-k{display:block;font-size:10px;font-weight:650;letter-spacing:.12em;color:var(--ink-3)}
+.mini-t{display:block;margin-top:6px;font-size:14.5px;font-weight:700;letter-spacing:-0.025em;line-height:1.35}
+.mini-m{display:block;font-size:11px;color:var(--ink-3)}
+
+/* segmented control */
+.seg{display:flex;gap:3px;background:var(--surface);border-radius:13px;padding:3px}
+.seg button{flex:1;height:33px;border-radius:10px;font-size:12.5px;font-weight:600;color:var(--ink-3);
+  transition:background .18s,color .18s,box-shadow .18s}
+.seg button.is-active{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(17,17,17,.07)}
+
+.fpanel{display:none}
+.fpanel.is-active{display:block}
+
+/* horizontal chip rail */
+.chips{display:flex;gap:7px;overflow-x:auto;padding:14px 20px 15px;margin:0 -20px;scrollbar-width:none;
+  scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;height:34px;padding:0 13px;border-radius:999px;border:1px solid var(--line);
+  background:#fff;font-size:12.5px;font-weight:550;color:var(--ink-2);scroll-snap-align:center;
+  transition:background .16s,color .16s,border-color .16s}
+.chip.is-active{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:650}
+.chips.wrap{flex-wrap:wrap;overflow:visible;margin:0;padding:14px 0 4px}
+
+/* fortune card */
+.fortune{border:1px solid var(--line);border-radius:var(--r);padding:19px 19px 16px;background:#fff}
+.f-top{display:flex;align-items:center;justify-content:space-between}
+.f-sign{font-size:13px;font-weight:700;letter-spacing:-0.01em}
+.f-sign small{font-weight:500;color:var(--ink-3);font-size:11.5px;margin-left:6px;letter-spacing:0}
+.f-score{font-size:11px;color:var(--ink-3)}
+.f-score b{color:var(--ink);font-size:15px;font-weight:700;margin-left:5px;letter-spacing:-0.02em}
+.f-line{margin-top:15px;font-size:17.5px;font-weight:700;letter-spacing:-0.032em;line-height:1.42}
+.f-body{margin-top:8px;font-size:13.5px;color:var(--ink-2);line-height:1.68}
+.f-foot{margin-top:17px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--ink-3)}
+
+/* tarot */
+.tarot-wrap{padding:20px 0 6px;text-align:center}
+.tarot{width:214px;height:316px;margin:0 auto;perspective:1200px;cursor:pointer}
+.tarot-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;
+  transition:transform .72s cubic-bezier(.4,.05,.2,1)}
+.tarot.is-flipped .tarot-inner{transform:rotateY(180deg)}
+.tarot-face{position:absolute;inset:0;border-radius:16px;backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.tarot-front{background:var(--ink);color:#fff;padding:24px;border:1px solid #1c1c1c}
+.tarot-front::before{content:"";position:absolute;inset:9px;border:1px solid rgba(255,255,255,.18);border-radius:11px}
+.tarot-mark{font-size:19px;color:rgba(255,255,255,.9);letter-spacing:.3em;margin-left:.3em}
+.tarot-hint{position:absolute;bottom:26px;left:0;right:0;padding:0 22px;font-size:10.5px;line-height:1.5;
+  color:rgba(255,255,255,.5)}
+.tarot-back{background:#fff;border:1px solid var(--line);transform:rotateY(180deg);padding:24px 22px;color:var(--ink)}
+.tarot-no{font-size:10px;font-weight:650;letter-spacing:.22em;color:var(--ink-3)}
+.tarot-name{margin-top:10px;font-size:15px;font-weight:700;letter-spacing:-0.01em}
+.tarot-msg{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;line-height:1.7;color:var(--ink-2);text-align:left}
+.tarot-note{margin-top:16px;font-size:11.5px;color:var(--ink-3);line-height:1.6}
+
+/* ── service view ───────────────────────── */
+.intro{padding:12px 0 4px}
+.kicker{font-size:10.5px;font-weight:650;letter-spacing:.14em;color:var(--ink-3)}
+.h1{margin-top:10px;font-size:24px;font-weight:700;letter-spacing:-0.038em;line-height:1.34}
+.lead{margin-top:9px;font-size:13.5px;color:var(--ink-2);line-height:1.66}
+
+.rows{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+.row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;
+  border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row-k{font-size:11.5px;color:var(--ink-3);letter-spacing:0}
+.row-v{margin-top:3px;font-size:13.5px;font-weight:550;letter-spacing:-0.01em}
+.mini-btn{flex:0 0 auto;height:28px;padding:0 11px;border-radius:8px;background:var(--surface);
+  font-size:11.5px;font-weight:650;color:var(--ink)}
+.hint{margin-top:9px;font-size:11.5px;color:var(--ink-3);line-height:1.6}
+
+.acc{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+.acc-item{border-bottom:1px solid var(--line)}
+.acc-item:last-child{border-bottom:0}
+.acc-item summary{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;
+  font-size:13.5px;font-weight:650;list-style:none;cursor:pointer;letter-spacing:-0.015em}
+.acc-item summary::-webkit-details-marker{display:none}
+.acc-item summary::after{content:"";width:6px;height:6px;border-right:1.2px solid var(--ink-3);
+  border-bottom:1.2px solid var(--ink-3);transform:rotate(45deg);transition:transform .2s;margin-right:3px}
+.acc-item[open] summary::after{transform:rotate(-135deg)}
+.acc-item summary .cnt{font-weight:500;font-size:11.5px;color:var(--ink-3);margin-left:auto;margin-right:10px}
+.prices{padding:2px 16px 14px}
+.pr{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:8px 0;
+  border-top:1px solid #F2F2F4;font-size:13px}
+.pr:first-child{border-top:0}
+.pr span:first-child{color:var(--ink-2)}
+.pr span:last-child{font-variant-numeric:tabular-nums;font-weight:600;letter-spacing:-0.01em}
+
+/* ── products ───────────────────────────── */
+.plist{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+.prow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;
+  border-bottom:1px solid var(--line)}
+.prow:last-child{border-bottom:0}
+.p-name{font-size:13.5px;font-weight:600;letter-spacing:-0.018em;line-height:1.4}
+.p-meta{margin-top:2px;font-size:11px;color:var(--ink-3)}
+.add{flex:0 0 auto;height:30px;padding:0 12px;border-radius:9px;border:1px solid var(--line);
+  font-size:11.5px;font-weight:650;color:var(--ink);transition:background .16s,border-color .16s,color .16s}
+.add:active{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* ── treatment ──────────────────────────── */
+.step{background:var(--surface);border-radius:var(--r);padding:16px;margin-bottom:9px}
+.step-n{font-size:10px;font-weight:650;letter-spacing:.14em;color:var(--ink-3)}
+.step-t{margin-top:5px;font-size:14px;font-weight:700;letter-spacing:-0.02em}
+.step .chips.wrap{padding:12px 0 0;gap:6px}
+.chip.sm{height:31px;padding:0 11px;font-size:12px}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:650}
+.summary{border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-top:14px}
+.summary-t{font-size:12px;font-weight:650;color:var(--ink-3);letter-spacing:.02em}
+.summary p{margin-top:8px;font-size:13.5px;line-height:1.65;color:var(--ink-2)}
+.summary p b{color:var(--ink);font-weight:650}
+
+/* ── footer ─────────────────────────────── */
+.foot{margin-top:34px;padding:20px 0 8px;border-top:1px solid var(--line)}
+.foot-brand{font-size:11px;font-weight:650;letter-spacing:.19em}
+.foot-line{margin-top:6px;font-size:12px;color:var(--ink-2)}
+.foot-note{margin-top:10px;font-size:11px;color:var(--ink-3);line-height:1.6}
+
+/* ── my tray bar ────────────────────────── */
+.traybar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:center;
+  padding:0 16px calc(13px + var(--safe-b));pointer-events:none}
+.tray-in{pointer-events:auto;display:flex;align-items:center;gap:11px;width:100%;max-width:408px;
+  padding:9px 12px 9px 10px;border-radius:17px;border:1px solid var(--line);background:rgba(255,255,255,.94);
+  -webkit-backdrop-filter:blur(18px) saturate(180%);backdrop-filter:blur(18px) saturate(180%);
+  box-shadow:0 10px 30px rgba(17,17,17,.1);transition:transform .18s ease}
+.tray-in:active{transform:scale(.99)}
+.tray-count{flex:0 0 auto;width:34px;height:34px;border-radius:11px;background:var(--surface);
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;
+  letter-spacing:-0.02em;transition:background .2s,color .2s}
+.tray-count.has{background:var(--ink);color:#fff}
+.tray-text{flex:1;text-align:left;min-width:0}
+.tray-t{font-size:13px;font-weight:700;letter-spacing:-0.02em}
+.tray-s{font-size:11px;color:var(--ink-3);margin-top:1px}
+.tray-go{flex:0 0 auto;font-size:11px;font-weight:650;color:var(--ink-3);padding-right:3px}
+
+/* ── overlays ───────────────────────────── */
+.overlay{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;
+  visibility:hidden}
+.overlay.is-open{visibility:visible}
+.scrim{position:absolute;inset:0;background:rgba(17,17,17,.4);opacity:0;transition:opacity .28s}
+.overlay.is-open .scrim{opacity:1}
+.panel{position:relative;width:100%;max-width:440px;max-height:88vh;display:flex;flex-direction:column;
+  background:#fff;border-radius:24px 24px 0 0;transform:translateY(102%);
+  transition:transform .34s cubic-bezier(.22,.61,.36,1)}
+.overlay.is-open .panel{transform:none}
+.panel.tall{height:92vh}
+.grab{width:34px;height:4px;border-radius:99px;background:var(--line-2);margin:9px auto 0;flex:0 0 auto}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:12px 18px 10px;flex:0 0 auto}
+.panel-head h2{font-size:16px;font-weight:700;letter-spacing:-0.025em}
+.close{width:30px;height:30px;border-radius:50%;background:var(--surface);font-size:12px;color:var(--ink-2);
+  display:flex;align-items:center;justify-content:center}
+.panel-body{flex:1;overflow-y:auto;padding:4px 18px 14px;-webkit-overflow-scrolling:touch}
+.panel-foot{flex:0 0 auto;padding:12px 18px calc(16px + var(--safe-b));border-top:1px solid var(--line);
+  background:#fff;display:flex;flex-direction:column;gap:10px}
+
+.btn{width:100%;height:50px;border-radius:14px;background:var(--ink);color:#fff;font-size:14.5px;
+  font-weight:650;letter-spacing:-0.015em;transition:opacity .18s}
+.btn:active{opacity:.85}
+.btn:disabled{background:var(--surface);color:var(--ink-3)}
+.btn.ghost{background:var(--surface);color:var(--ink)}
+
+/* tray sheet */
+.tseg{margin-top:4px}
+#trayAdd{padding:14px 0 6px}
+.wrap-chips{flex-wrap:wrap;overflow:visible;margin:0}
+.tray-list{padding-top:6px}
+.trow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;
+  border-bottom:1px solid var(--line)}
+.trow:last-child{border-bottom:0}
+.t-name{font-size:13.5px;font-weight:600;letter-spacing:-0.018em}
+.t-meta{margin-top:2px;font-size:11px;color:var(--ink-3)}
+.qty{display:flex;align-items:center;gap:2px;flex:0 0 auto}
+.qty button{width:29px;height:29px;border-radius:9px;background:var(--surface);font-size:14px;
+  color:var(--ink);display:flex;align-items:center;justify-content:center;line-height:1}
+.qty span{min-width:26px;text-align:center;font-size:13px;font-weight:650;font-variant-numeric:tabular-nums}
+.empty{padding:26px 0 18px;text-align:center;font-size:12.5px;color:var(--ink-3);line-height:1.7}
+.tray-sum{font-size:12px;color:var(--ink-3)}
+.tray-sum b{color:var(--ink);font-weight:650}
+
+/* quiz */
+.quiz-head{position:relative;justify-content:center}
+.quiz-head .close{position:absolute;right:18px;top:12px}
+.back{position:absolute;left:14px;top:12px;width:30px;height:30px;font-size:19px;color:var(--ink-2);
+  display:flex;align-items:center;justify-content:center;line-height:1}
+.quiz-kicker{font-size:10px;font-weight:650;letter-spacing:.17em;color:var(--ink-3)}
+.progress{height:2px;background:var(--surface);margin:0 18px;border-radius:2px;overflow:hidden;flex:0 0 auto}
+.progress i{display:block;height:100%;width:0;background:var(--ink);transition:width .32s ease}
+.q-count{font-size:11px;font-weight:650;color:var(--ink-3);letter-spacing:.04em;margin-top:20px}
+.q-title{margin-top:9px;font-size:19px;font-weight:700;letter-spacing:-0.033em;line-height:1.44}
+.opts{margin-top:20px;display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
+  padding:15px 16px;border-radius:14px;background:var(--surface);font-size:14px;font-weight:550;
+  text-align:left;letter-spacing:-0.015em;line-height:1.45;transition:background .16s,color .16s,transform .16s}
+.opt:active{transform:scale(.995)}
+.opt i{font-style:normal;color:var(--ink-3);font-size:15px;flex:0 0 auto}
+.opt.sel{background:var(--ink);color:#fff}
+.opt.sel i{color:rgba(255,255,255,.5)}
+.opt.ok{background:var(--ink);color:#fff}
+.opt.ok i::after{content:"정답"}
+.opt.no{background:#FFF1F0;color:#B3261E}
+.opt.no i::after{content:"오답"}
+.opt.ok i,.opt.no i{font-size:11px;font-weight:650}
+.opt.mute{opacity:.38}
+.result-card{border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-top:20px}
+.result-code{font-size:10.5px;font-weight:700;letter-spacing:.2em;color:var(--ink-3)}
+.result-name{margin-top:8px;font-size:21px;font-weight:700;letter-spacing:-0.035em;line-height:1.35}
+.result-desc{margin-top:9px;font-size:13.5px;color:var(--ink-2);line-height:1.68}
+.result-rows{margin-top:16px;border-top:1px solid var(--line)}
+.rrow{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);
+  font-size:12.5px}
+.rrow:last-child{border-bottom:0}
+.rrow span:first-child{color:var(--ink-3);flex:0 0 auto}
+.rrow span:last-child{text-align:right;font-weight:600;letter-spacing:-0.012em}
+.score-big{font-size:38px;font-weight:700;letter-spacing:-0.04em;line-height:1.1}
+.score-big small{font-size:14px;color:var(--ink-3);font-weight:600;margin-left:4px;letter-spacing:0}
+.review{margin-top:16px;border-top:1px solid var(--line);padding-top:4px}
+.rev{padding:10px 0;border-bottom:1px solid #F2F2F4;font-size:12px;line-height:1.55}
+.rev:last-child{border-bottom:0}
+.rev-q{color:var(--ink-2)}
+.rev-a{margin-top:3px;font-weight:600;letter-spacing:-0.01em}
+.rev-a.wrong{color:#B3261E}
+.result-actions{display:flex;gap:8px}
+.result-actions .btn{flex:1}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(88px + var(--safe-b));transform:translate(-50%,14px);
+  z-index:80;max-width:340px;padding:11px 15px;border-radius:12px;background:rgba(17,17,17,.94);color:#fff;
+  font-size:12.5px;font-weight:550;letter-spacing:-0.01em;text-align:center;line-height:1.45;
+  opacity:0;pointer-events:none;transition:opacity .24s,transform .24s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap" id="top">
+  <header class="head" id="head">
+    <div class="head-in">
+      <div class="brand">SALON ABIDE<span>· 성남 모란</span></div>
+      <button class="lang" id="langBtn" aria-label="언어 전환">KR</button>
+    </div>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="주요 메뉴">
+      <button class="tab" role="tab" aria-selected="false" data-view="service">Service</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="products">Products</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="guide">Care Guide</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="progress">Treatment</button>
+      <button class="tab is-active" role="tab" aria-selected="true" data-view="daily">Daily Picks</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ═══ DAILY PICKS ═══ -->
+    <section class="view is-active" data-view="daily">
+      <div class="greet">
+        <p class="date" id="todayLine">11월 25일 수요일</p>
+        <p class="quote">누군가에게 건네는 짧은 인사가 생각보다 큰 온도가 돼.</p>
+      </div>
+
+      <section class="section">
+        <div class="sec-head">
+          <h2 class="sec-title">오늘의 테스트</h2>
+          <span class="sec-meta">3개 · 무료</span>
+        </div>
+        <button class="hero" data-quiz="mbti">
+          <span class="hero-kicker">HAIR MBTI</span>
+          <span class="hero-title">나만의 헤어 MBTI</span>
+          <span class="hero-sub">네 문항으로 지금 머리에 맞는 시술과 홈케어를 찾아요</span>
+          <span class="hero-cta">테스트 시작
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M6.5 2.5 10 6l-3.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+        <div class="duo">
+          <button class="mini" data-quiz="scalp">
+            <span><span class="mini-k">SCALP</span><span class="mini-t">두피 상태 체크</span></span>
+            <span class="mini-m">5문항 · 약 40초</span>
+          </button>
+          <button class="mini" data-quiz="hairquiz">
+            <span><span class="mini-k">QUIZ</span><span class="mini-t">헤어관리 퀴즈</span></span>
+            <span class="mini-m">5문항 · 정답 확인</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="sec-head">
+          <h2 class="sec-title">오늘의 운세</h2>
+          <span class="sec-meta" id="fDate">11.25</span>
+        </div>
+        <div class="seg" id="fSeg" role="tablist" aria-label="운세 종류">
+          <button class="is-active" role="tab" aria-selected="true" data-f="zodiac">띠별</button>
+          <button role="tab" aria-selected="false" data-f="rashi">별자리</button>
+          <button role="tab" aria-selected="false" data-f="tarot">타로</button>
+        </div>
+
+        <div class="fpanel is-active" data-fp="zodiac">
+          <div class="chips" id="zodiacChips"></div>
+          <div class="fortune" id="zodiacCard"></div>
+        </div>
+
+        <div class="fpanel" data-fp="rashi">
+          <div class="chips" id="rashiChips"></div>
+          <div class="fortune" id="rashiCard"></div>
+        </div>
+
+        <div class="fpanel" data-fp="tarot">
+          <div class="tarot-wrap">
+            <div class="tarot" id="tarot" role="button" tabindex="0" aria-label="오늘의 타로 카드 뒤집기">
+              <div class="tarot-inner">
+                <div class="tarot-face tarot-front">
+                  <span class="tarot-mark">✳</span>
+                  <span class="tarot-hint">탭해서 오늘의 카드를 열어보세요</span>
+                </div>
+                <div class="tarot-face tarot-back">
+                  <span class="tarot-no" id="tarotNo">XVII</span>
+                  <span class="tarot-name" id="tarotName">The Star</span>
+                  <p class="tarot-msg" id="tarotMsg"></p>
+                </div>
+              </div>
+            </div>
+            <p class="tarot-note" id="tarotNote">하루에 한 번, 카드를 뒤집어 오늘의 메시지를 확인해 보세요.</p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <p class="foot-brand">SALON ABIDE</p>
+        <p class="foot-line">성남 모란역 앞 · 헤어 살롱</p>
+        <p class="foot-note">리뉴얼 시안입니다. 실제 예약과 결제는 이 페이지에서 이뤄지지 않아요.</p>
+      </footer>
+    </section>
+
+    <!-- ═══ SERVICE ═══ -->
+    <section class="view" data-view="service">
+      <div class="intro">
+        <p class="kicker">SALON ABIDE · 성남 모란역</p>
+        <h1 class="h1">스타일이 자연스럽게 깃드는 곳</h1>
+        <p class="lead">머무는 동안은 편안하게, 나설 때는 기억에 남게. 상담부터 마무리까지 한 자리에서 챙깁니다.</p>
+      </div>
+
+      <section class="section">
+        <div class="sec-head"><h2 class="sec-title">매장 이용</h2></div>
+        <ul class="rows">
+          <li class="row">
+            <div><p class="row-k">Wi-Fi</p><p class="row-v">U+NetBD48_5G</p></div>
+            <button class="mini-btn" data-copy="U+NetBD48_5G">복사</button>
+          </li>
+          <li class="row">
+            <div><p class="row-k">주차</p><p class="row-v">컷 30분 · 화학 시술 최대 2시간</p></div>
+          </li>
+          <li class="row">
+            <div><p class="row-k">계좌 이체</p><p class="row-v">기업은행 · 이왕표</p></div>
+          </li>
+        </ul>
+        <p class="hint">주차는 모란역 메가박스 지하주차장을 이용해 주세요. Wi-Fi 비밀번호와 계좌는 카운터에서 안내드립니다.</p>
+      </section>
+
+      <section class="section">
+        <div class="sec-head"><h2 class="sec-title">시술 가격</h2><span class="sec-meta">기본가</span></div>
+        <div class="acc">
+          <details class="acc-item" open>
+            <summary>컷<span class="cnt">3</span></summary>
+            <div class="prices">
+              <div class="pr"><span>남성 컷</span><span>25,000~40,000</span></div>
+              <div class="pr"><span>여성 컷</span><span>27,000~50,000</span></div>
+              <div class="pr"><span>앞머리 컷</span><span>10,000</span></div>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>일반펌<span class="cnt">4</span></summary>
+            <div class="prices">
+              <div class="pr"><span>뿌리볼륨펌</span><span>80,000</span></div>
+              <div class="pr"><span>[W] 베이직 디자인펌</span><span>99,000~150,000</span></div>
+              <div class="pr"><span>옆머리 다운펌</span><span>30,000</span></div>
+              <div class="pr"><span>전체 다운펌</span><span>60,000</span></div>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>열펌<span class="cnt">8</span></summary>
+            <div class="prices">
+              <div class="pr"><span>[M] 디자인 펌</span><span>80,000~130,000</span></div>
+              <div class="pr"><span>[M] 디자인 특수펌</span><span>110,000~250,000</span></div>
+              <div class="pr"><span>[M] 볼륨매직</span><span>135,000</span></div>
+              <div class="pr"><span>[M] 아이롱펌</span><span>160,000</span></div>
+              <div class="pr"><span>[W] 셋팅펌</span><span>150,000~180,000</span></div>
+              <div class="pr"><span>[W] 볼륨매직</span><span>165,000</span></div>
+              <div class="pr"><span>[W] 매직셋팅</span><span>220,000~280,000</span></div>
+              <div class="pr"><span>서프라리스 보톡스펌</span><span>250,000</span></div>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>염색<span class="cnt">8</span></summary>
+            <div class="prices">
+              <div class="pr"><span>[W] 뿌리염색 (리터치컬러)</span><span>80,000~100,000</span></div>
+              <div class="pr"><span>[M] 퍼스널 컬러</span><span>80,000~150,000</span></div>
+              <div class="pr"><span>[W] 퍼스널 컬러</span><span>120,000~180,000</span></div>
+              <div class="pr"><span>[M] 탈색</span><span>120,000~130,000</span></div>
+              <div class="pr"><span>[W] 탈색</span><span>150,000~180,000</span></div>
+              <div class="pr"><span>옴브레 · 발레아쥬</span><span>300,000</span></div>
+              <div class="pr"><span>컬러 유지 샴푸</span><span>20,000</span></div>
+              <div class="pr"><span>두피보호제</span><span>10,000</span></div>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>클리닉<span class="cnt">4</span></summary>
+            <div class="prices">
+              <div class="pr"><span>BTX 비건 클리닉</span><span>150,000~250,000</span></div>
+              <div class="pr"><span>오주아 탄산클리닉</span><span>50,000</span></div>
+              <div class="pr"><span>오주아 모발클리닉</span><span>120,000</span></div>
+              <div class="pr"><span>오주아 두피클리닉</span><span>80,000</span></div>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>기타<span class="cnt">4</span></summary>
+            <div class="prices">
+              <div class="pr"><span>남성 드라이</span><span>20,000</span></div>
+              <div class="pr"><span>여성 드라이</span><span>30,000~45,000</span></div>
+              <div class="pr"><span>볼륨 웨이브 드라이</span><span>45,000</span></div>
+              <div class="pr"><span>스파샴푸</span><span>20,000</span></div>
+            </div>
+          </details>
+        </div>
+        <p class="hint">모든 시술은 디자이너와 상담한 뒤 두피·모발 상태에 따라 최종 금액이 정해집니다.</p>
+      </section>
+
+      <section class="section">
+        <div class="sec-head"><h2 class="sec-title">음료 · 서비스</h2><span class="sec-meta">눌러서 담기</span></div>
+        <div class="chips wrap" id="quickAdd">
+          <button class="chip" data-add="drink|생수|무료">생수</button>
+          <button class="chip" data-add="drink|아메리카노|ICE · HOT">아메리카노</button>
+          <button class="chip" data-add="drink|믹스커피|ICE · HOT">믹스커피</button>
+          <button class="chip" data-add="drink|녹차|ICE · HOT">녹차</button>
+          <button class="chip" data-add="drink|둥글레차|ICE · HOT">둥글레차</button>
+          <button class="chip" data-add="drink|아이스티|ICE">아이스티</button>
+          <button class="chip" data-add="service|물티슈|무료">물티슈</button>
+          <button class="chip" data-add="service|충전 케이블|C타입 · 라이트닝">충전 케이블</button>
+          <button class="chip" data-add="service|담요|무료">담요</button>
+          <button class="chip" data-add="service|쿠션|무료">쿠션</button>
+        </div>
+      </section>
+    </section>
+
+    <!-- ═══ PRODUCTS ═══ -->
+    <section class="view" data-view="products">
+      <div class="intro">
+        <p class="kicker">MILBON AUJUA</p>
+        <h1 class="h1">홈케어는 매장에서 쓰는 그대로</h1>
+        <p class="lead">23개 라인 전 제품을 매장에서 만나볼 수 있어요. 구매는 디자이너 상담 후에 진행됩니다.</p>
+      </div>
+      <section class="section">
+        <div class="sec-head"><h2 class="sec-title">전체 23</h2><span class="sec-meta">밀본 오주아</span></div>
+        <div class="plist" id="productList"></div>
+      </section>
+    </section>
+
+    <!-- ═══ CARE GUIDE ═══ -->
+    <section class="view" data-view="guide">
+      <div class="intro">
+        <p class="kicker">SALON CARE GUIDE</p>
+        <h1 class="h1">시술 다음 날이 결과를 결정해요</h1>
+        <p class="lead">지금 받은 시술에 맞는 관리 방법만 모았습니다. 항목을 눌러 확인하세요.</p>
+      </div>
+      <section class="section">
+        <div class="chips" id="guideChips">
+          <button class="chip is-active" data-cat="all">전체 16</button>
+          <button class="chip" data-cat="케어">케어 7</button>
+          <button class="chip" data-cat="펌">펌 5</button>
+          <button class="chip" data-cat="염색">염색 4</button>
+        </div>
+        <div class="acc" id="guideList"></div>
+      </section>
+    </section>
+
+    <!-- ═══ TREATMENT PROGRESS ═══ -->
+    <section class="view" data-view="progress">
+      <div class="intro">
+        <p class="kicker">TREATMENT PROGRESS</p>
+        <h1 class="h1">상담 전에 미리 적어두면 빨라요</h1>
+        <p class="lead">네 가지만 골라두면 담당 디자이너가 미리 확인하고 기다리는 시간을 줄여드립니다.</p>
+      </div>
+
+      <section class="section">
+        <div class="step" data-group="시술 종류">
+          <p class="step-n">STEP 1</p>
+          <p class="step-t">오늘 받고 싶은 시술</p>
+          <div class="chips wrap">
+            <button class="chip sm" data-pick>커트</button>
+            <button class="chip sm" data-pick>펌</button>
+            <button class="chip sm" data-pick>염색</button>
+            <button class="chip sm" data-pick>클리닉</button>
+          </div>
+        </div>
+        <div class="step" data-group="모발 상태">
+          <p class="step-n">STEP 2</p>
+          <p class="step-t">지금 모발 상태</p>
+          <div class="chips wrap">
+            <button class="chip sm" data-pick>매우 건강</button>
+            <button class="chip sm" data-pick>보통</button>
+            <button class="chip sm" data-pick>약간 손상</button>
+            <button class="chip sm" data-pick>극손상</button>
+            <button class="chip sm" data-pick>모르겠음</button>
+          </div>
+        </div>
+        <div class="step" data-group="두피 고민">
+          <p class="step-n">STEP 3</p>
+          <p class="step-t">두피에서 신경 쓰이는 것</p>
+          <div class="chips wrap">
+            <button class="chip sm" data-pick>가려움</button>
+            <button class="chip sm" data-pick>따가움</button>
+            <button class="chip sm" data-pick>붉어짐</button>
+            <button class="chip sm" data-pick>트러블</button>
+            <button class="chip sm" data-pick>없음</button>
+          </div>
+        </div>
+        <div class="step" data-group="최근 시술 이력">
+          <p class="step-n">STEP 4</p>
+          <p class="step-t">최근 6개월 시술 이력</p>
+          <div class="chips wrap">
+            <button class="chip sm" data-pick>염색</button>
+            <button class="chip sm" data-pick>펌</button>
+            <button class="chip sm" data-pick>탈색</button>
+            <button class="chip sm" data-pick>없음</button>
+          </div>
+        </div>
+
+        <div class="summary">
+          <p class="summary-t">상담 요약</p>
+          <p id="summaryText">아직 고른 항목이 없어요. 위에서 하나씩 눌러보세요.</p>
+        </div>
+        <div style="margin-top:12px">
+          <button class="btn" id="progressSend">담당 디자이너에게 전달</button>
+        </div>
+      </section>
+    </section>
+  </main>
+</div>
+
+<!-- My Tray floating bar -->
+<div class="traybar">
+  <button class="tray-in" id="trayOpen" aria-haspopup="dialog" aria-label="My Tray 열기">
+    <span class="tray-count" id="trayCount">0</span>
+    <span class="tray-text">
+      <span class="tray-t">My Tray</span>
+      <span class="tray-s" id="traySub">담긴 항목이 없어요</span>
+    </span>
+    <span class="tray-go">열기</span>
+  </button>
+</div>
+
+<!-- My Tray sheet -->
+<div class="overlay" id="traySheet" aria-hidden="true">
+  <div class="scrim" data-close></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="My Tray">
+    <div class="grab"></div>
+    <div class="panel-head">
+      <h2>My Tray</h2>
+      <button class="close" data-close aria-label="닫기">✕</button>
+    </div>
+    <div class="panel-body">
+      <div class="seg tseg" id="traySeg">
+        <button class="is-active" data-g="drink">음료</button>
+        <button data-g="service">서비스</button>
+        <button data-g="product">제품</button>
+      </div>
+      <div class="chips wrap wrap-chips" id="trayAdd"></div>
+      <div class="tray-list" id="trayList"></div>
+    </div>
+    <div class="panel-foot">
+      <p class="tray-sum" id="traySum">담긴 항목이 없어요</p>
+      <button class="btn" id="trayRequest" disabled>요청하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- quiz sheet -->
+<div class="overlay" id="quizSheet" aria-hidden="true">
+  <div class="scrim" data-close></div>
+  <div class="panel tall" role="dialog" aria-modal="true" aria-label="테스트">
+    <div class="grab"></div>
+    <div class="panel-head quiz-head">
+      <button class="back" id="quizBack" aria-label="이전 질문">‹</button>
+      <span class="quiz-kicker" id="quizKicker">HAIR MBTI</span>
+      <button class="close" data-close aria-label="닫기">✕</button>
+    </div>
+    <div class="progress"><i id="quizBar"></i></div>
+    <div class="panel-body" id="quizBody"></div>
+    <div class="panel-foot" id="quizFoot"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+var $ = function(s,r){ return (r||document).querySelector(s); };
+var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+
+/* ── date ─────────────────────────────── */
+var NOW = new Date();
+var WD = ['일','월','화','수','목','금','토'];
+var dateLine = (NOW.getMonth()+1)+'월 '+NOW.getDate()+'일 '+WD[NOW.getDay()]+'요일';
+var shortDate = (NOW.getMonth()+1)+'.'+NOW.getDate();
+$('#todayLine').textContent = dateLine;
+$('#fDate').textContent = shortDate;
+
+/* ── toast ────────────────────────────── */
+var toastT;
+function toast(msg){
+  var t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+}
+
+/* ── tabs ─────────────────────────────── */
+var tabs = $('#tabs');
+tabs.addEventListener('click', function(e){
+  var b = e.target.closest('.tab'); if(!b) return;
+  switchView(b.dataset.view);
+  if(b.scrollIntoView) b.scrollIntoView({inline:'center', block:'nearest', behavior:'smooth'});
+});
+function switchView(name){
+  $$('.tab').forEach(function(t){
+    var on = t.dataset.view === name;
+    t.classList.toggle('is-active', on);
+    t.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  $$('.view').forEach(function(v){ v.classList.toggle('is-active', v.dataset.view === name); });
+  window.scrollTo(0,0);
+}
+
+/* header hairline */
+window.addEventListener('scroll', function(){
+  $('#head').classList.toggle('scrolled', window.scrollY > 4);
+}, {passive:true});
+
+/* ── fortune data ─────────────────────── */
+var ZODIAC = [
+  {n:'쥐', s:88, l:'작은 정리가 큰돈을 부른다', b:'미뤄둔 서류나 결제를 오늘 끝내면 마음이 한결 가벼워져요. 오후에는 예상하지 못한 연락이 옵니다.'},
+  {n:'소', s:76, l:'천천히 가도 방향은 맞다', b:'속도를 내기보다 순서를 지키는 날이에요. 손끝의 정확함이 결과를 바꿉니다.'},
+  {n:'호랑이', s:91, l:'먼저 꺼낸 말이 판을 바꾼다', b:'망설이던 제안을 오늘 꺼내보세요. 상대는 생각보다 열려 있습니다.'},
+  {n:'토끼', s:72, l:'쉬는 시간이 실력을 만든다', b:'점심 뒤 십 분의 여백을 확보해 보세요. 그 시간에 답이 떠오릅니다.'},
+  {n:'용', s:84, l:'큰 결정은 오후로 미뤄도 좋다', b:'오전엔 정보를 모으고 오후에 결정하세요. 세 시 이후의 판단이 더 정확합니다.'},
+  {n:'뱀', s:69, l:'말을 아끼면 이긴다', b:'굳이 설명하지 않아도 되는 일이 있어요. 오늘은 듣는 쪽이 유리합니다.'},
+  {n:'말', s:82, l:'움직이면 풀린다', b:'자리에 앉아 고민하지 말고 한 번 나가보세요. 걷다 보면 정리되는 게 있습니다.'},
+  {n:'양', s:79, l:'베푼 것이 돌아온다', b:'작은 호의 하나가 오후의 도움으로 돌아옵니다. 먼저 건네보세요.'},
+  {n:'원숭이', s:87, l:'아이디어는 메모에서 살아난다', b:'떠오른 생각을 바로 적어두세요. 저녁에 쓸모 있는 한 줄이 됩니다.'},
+  {n:'닭', s:74, l:'기준을 세우면 흔들리지 않는다', b:'오늘 할 일을 세 개로 줄여보세요. 나머지는 내일도 충분합니다.'},
+  {n:'개', s:80, l:'솔직함이 관계를 살린다', b:'돌려 말하지 말고 그대로 전하세요. 오해가 하나 줄어듭니다.'},
+  {n:'돼지', s:85, l:'먹고 자는 것이 실력이다', b:'저녁은 조금 일찍, 잠은 조금 더. 컨디션이 내일의 성과를 만듭니다.'}
+];
+
+var RASHI = [
+  {n:'양자리', g:'♈', d:'3.21–4.19', s:83, l:'속도보다 온도', b:'추진력은 좋지만 오늘은 한 번 더 확인하세요. 말의 온도가 결과를 바꿉니다.'},
+  {n:'황소자리', g:'♉', d:'4.20–5.20', s:78, l:'익숙한 것이 답', b:'새로운 선택보다 잘하던 방식을 다듬는 날이에요. 루틴이 성과로 이어집니다.'},
+  {n:'쌍둥이자리', g:'♊', d:'5.21–6.21', s:71, l:'두 갈래 길, 하나만', b:'동시에 하려던 일을 하나로 줄이세요. 집중한 쪽에서 결실이 납니다.'},
+  {n:'게자리', g:'♋', d:'6.22–7.22', s:86, l:'마음이 먼저다', b:'논리보다 기분을 살피세요. 가까운 사람의 한마디가 힘이 됩니다.'},
+  {n:'사자자리', g:'♌', d:'7.23–8.22', s:90, l:'무대는 이미 준비됐다', b:'드러내도 좋은 날이에요. 준비해둔 것을 자신 있게 보여주세요.'},
+  {n:'처녀자리', g:'♍', d:'8.23–9.22', s:75, l:'완벽 대신 완료', b:'여든에서 멈추고 내놓으세요. 나머지는 반응을 보고 고치면 됩니다.'},
+  {n:'천칭자리', g:'♎', d:'9.23–10.22', s:81, l:'균형은 조정에서 온다', b:'한쪽으로 기울었다면 오늘 한 번 되돌려 보세요. 관계가 편안해집니다.'},
+  {n:'전갈자리', g:'♏', d:'10.23–11.22', s:88, l:'깊게 보면 보인다', b:'표면의 말보다 의도를 읽으세요. 오늘은 관찰이 무기가 됩니다.'},
+  {n:'사수자리', g:'♐', d:'11.23–12.21', s:84, l:'멀리 보는 하루', b:'당장의 이익보다 다음 달을 그려보세요. 계획 하나가 방향을 잡아줍니다.'},
+  {n:'염소자리', g:'♑', d:'12.22–1.19', s:77, l:'쌓은 것이 말한다', b:'화려한 시도보다 한 걸음 전진. 오늘의 기록이 내일의 근거가 됩니다.'},
+  {n:'물병자리', g:'♒', d:'1.20–2.18', s:73, l:'다르게 생각해도 된다', b:'남들이 가지 않는 길에 답이 있어요. 다만 근거는 챙기세요.'},
+  {n:'물고기자리', g:'♓', d:'2.19–3.20', s:80, l:'쉬어야 보인다', b:'감정이 앞서면 결정을 미루세요. 저녁의 판단이 더 차분합니다.'}
+];
+
+var TAROT = [
+  {no:'XVII', name:'The Star', m:'회복의 기운이 도는 날이에요. 오늘은 일보다 몸을 챙기는 선택이 가장 좋은 투자입니다.'},
+  {no:'XIX', name:'The Sun', m:'미뤄둔 일에 작은 성과가 붙습니다. 먼저 말을 건 사람에게 좋은 소식이 따라옵니다.'},
+  {no:'IX', name:'The Hermit', m:'혼자 정리하는 시간이 필요해요. 답은 조용한 자리에서 올라옵니다.'},
+  {no:'X', name:'Wheel of Fortune', m:'흐름이 바뀌는 지점이에요. 기다리던 소식이 생각보다 가까이 있습니다.'},
+  {no:'XVIII', name:'The Moon', m:'확신이 없는 결정은 하루만 미뤄보세요. 내일의 시야가 더 맑습니다.'},
+  {no:'VI', name:'The Lovers', m:'마음이 가는 쪽을 고르세요. 오늘의 선택은 사람에게서 나옵니다.'}
+];
+
+function pickTarot(){
+  var idx = (NOW.getDate() + NOW.getMonth()*2) % TAROT.length;
+  return TAROT[idx];
+}
+
+/* ── fortune rendering ────────────────── */
+var zIdx = 0, rIdx = 0;
+
+function chipHTML(list, active, attr){
+  return list.map(function(item,i){
+    return '<button class="chip'+(i===active?' is-active':'')+'" data-'+attr+'="'+i+'">'+item+'</button>';
+  }).join('');
+}
+
+$('#zodiacChips').innerHTML = chipHTML(ZODIAC.map(function(z){ return z.n+'띠'; }), 0, 'z');
+$('#rashiChips').innerHTML = chipHTML(RASHI.map(function(r){ return r.g+' '+r.n; }), 0, 'r');
+
+function cardHTML(sign, sub, score, line, body){
+  return '<div class="f-top"><span class="f-sign">'+sign+(sub?'<small>'+sub+'</small>':'')+'</span>'+
+         '<span class="f-score">오늘의 지수<b>'+score+'</b></span></div>'+
+         '<p class="f-line">'+line+'</p>'+
+         '<p class="f-body">'+body+'</p>'+
+         '<p class="f-foot">'+shortDate+' 기준 · 매일 자정에 갱신됩니다</p>';
+}
+
+function paint(el, html){
+  el.innerHTML = html;
+  if(el.animate){
+    el.animate([{opacity:0, transform:'translateY(5px)'},{opacity:1, transform:'none'}], {duration:220, easing:'ease-out'});
+  }
+}
+
+function renderZodiac(){
+  var z = ZODIAC[zIdx];
+  paint($('#zodiacCard'), cardHTML(z.n+'띠', '', z.s, z.l, z.b));
+}
+function renderRashi(){
+  var r = RASHI[rIdx];
+  paint($('#rashiCard'), cardHTML('<span style="font-size:15px">'+r.g+'</span> '+r.n, r.d, r.s, r.l, r.b));
+}
+
+renderZodiac();
+renderRashi();
+
+$('#zodiacChips').addEventListener('click', function(e){
+  var b = e.target.closest('[data-z]'); if(!b) return;
+  zIdx = +b.dataset.z;
+  $$('#zodiacChips .chip').forEach(function(c){ c.classList.toggle('is-active', +c.dataset.z === zIdx); });
+  renderZodiac();
+});
+$('#rashiChips').addEventListener('click', function(e){
+  var b = e.target.closest('[data-r]'); if(!b) return;
+  rIdx = +b.dataset.r;
+  $$('#rashiChips .chip').forEach(function(c){ c.classList.toggle('is-active', +c.dataset.r === rIdx); });
+  renderRashi();
+});
+
+/* segment */
+$('#fSeg').addEventListener('click', function(e){
+  var b = e.target.closest('[data-f]'); if(!b) return;
+  var key = b.dataset.f;
+  $$('#fSeg button').forEach(function(x){
+    var on = x.dataset.f === key;
+    x.classList.toggle('is-active', on);
+    x.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  $$('.fpanel').forEach(function(p){ p.classList.toggle('is-active', p.dataset.fp === key); });
+});
+
+/* tarot */
+var tt = pickTarot();
+$('#tarotNo').textContent = tt.no;
+$('#tarotName').textContent = tt.name;
+$('#tarotMsg').textContent = tt.m;
+
+function flipTarot(){
+  var el = $('#tarot');
+  el.classList.toggle('is-flipped');
+  $('#tarotNote').textContent = el.classList.contains('is-flipped')
+    ? '오늘의 카드는 여기까지예요. 내일 자정에 새 카드가 열립니다.'
+    : '하루에 한 번, 카드를 뒤집어 오늘의 메시지를 확인해 보세요.';
+}
+$('#tarot').addEventListener('click', flipTarot);
+$('#tarot').addEventListener('keydown', function(e){
+  if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); flipTarot(); }
+});
+
+/* ── catalog & tray ───────────────────── */
+var CATALOG = {
+  drink:[
+    {n:'생수', m:'무료'}, {n:'아메리카노', m:'ICE · HOT'}, {n:'믹스커피', m:'ICE · HOT'},
+    {n:'녹차', m:'ICE · HOT'}, {n:'둥글레차', m:'ICE · HOT'}, {n:'아이스티', m:'ICE'},
+    {n:'얼음물', m:'무료'}, {n:'따뜻한 물', m:'무료'}
+  ],
+  service:[
+    {n:'물티슈', m:'무료'}, {n:'충전 케이블', m:'C타입 · 라이트닝'},
+    {n:'담요', m:'무료'}, {n:'쿠션', m:'무료'}
+  ],
+  product:[
+    {n:'오주아 필멜로우 샴푸', m:'상담 후 구매'},
+    {n:'오주아 리페어리티 샴푸', m:'상담 후 구매'},
+    {n:'오주아 리페어리티 트리트먼트', m:'상담 후 구매'},
+    {n:'오주아 퀜치 세럼', m:'상담 후 구매'},
+    {n:'오주아 스무스 샴푸', m:'상담 후 구매'},
+    {n:'오주아 두피클리닉', m:'80,000원'}
+  ]
+};
+
+var tray = new Map();
+var trayGroup = 'drink';
+
+function trayTotal(){
+  var n = 0;
+  tray.forEach(function(it){ n += it.qty; });
+  return n;
+}
+
+function addToTray(group, name, meta){
+  var key = group+'|'+name;
+  var cur = tray.get(key);
+  if(cur){ cur.qty += 1; }
+  else{ tray.set(key, {g:group, n:name, m:meta || '담음', qty:1}); }
+  updateTray();
+  toast(name+' · 담았어요');
+}
+
+function updateTray(){
+  var total = trayTotal();
+  var cc = $('#trayCount');
+  cc.textContent = String(total);
+  cc.classList.toggle('has', total > 0);
+  $('#traySub').textContent = total > 0 ? '요청할 항목 '+total+'개' : '담긴 항목이 없어요';
+  $('#traySum').innerHTML = total > 0
+    ? '총 <b>'+total+'개</b>를 요청합니다'
+    : '담긴 항목이 없어요';
+  $('#trayRequest').disabled = total === 0;
+  renderTrayList();
+}
+
+function renderTrayAdd(){
+  $('#trayAdd').innerHTML = CATALOG[trayGroup].map(function(it){
+    return '<button class="chip" data-add="'+trayGroup+'|'+it.n+'|'+it.m+'">'+it.n+'</button>';
+  }).join('');
+}
+
+function renderTrayList(){
+  var items = [];
+  tray.forEach(function(it, key){ if(it.g === trayGroup) items.push([key, it]); });
+  var box = $('#trayList');
+  if(!items.length){
+    box.innerHTML = '<p class="empty">'+ (trayGroup==='drink' ? '음료' : trayGroup==='service' ? '서비스' : '제품') +'를 아직 담지 않았어요.<br>위에서 눌러 담아보세요.</p>';
+    return;
+  }
+  box.innerHTML = items.map(function(pair){
+    var key = pair[0], it = pair[1];
+    return '<div class="trow"><div><p class="t-name">'+it.n+'</p><p class="t-meta">'+it.m+'</p></div>'+
+      '<div class="qty"><button data-dec="'+key+'" aria-label="빼기">−</button><span>'+it.qty+'</span>'+
+      '<button data-inc="'+key+'" aria-label="더하기">+</button></div></div>';
+  }).join('');
+}
+
+/* add buttons anywhere */
+document.addEventListener('click', function(e){
+  var b = e.target.closest('[data-add]'); if(!b) return;
+  e.preventDefault();
+  var parts = b.dataset.add.split('|');
+  addToTray(parts[0], parts[1], parts[2]);
+});
+
+$('#traySeg').addEventListener('click', function(e){
+  var b = e.target.closest('[data-g]'); if(!b) return;
+  trayGroup = b.dataset.g;
+  $$('#traySeg button').forEach(function(x){ x.classList.toggle('is-active', x.dataset.g === trayGroup); });
+  renderTrayAdd(); renderTrayList();
+});
+
+$('#trayList').addEventListener('click', function(e){
+  var inc = e.target.closest('[data-inc]');
+  var dec = e.target.closest('[data-dec]');
+  if(inc){
+    var it = tray.get(inc.dataset.inc); if(it){ it.qty += 1; updateTray(); }
+  } else if(dec){
+    var k = dec.dataset.dec; var cur = tray.get(k);
+    if(cur){ cur.qty -= 1; if(cur.qty <= 0) tray.delete(k); updateTray(); }
+  }
+});
+
+/* ── overlays ─────────────────────────── */
+function openOverlay(sel){
+  var el = $(sel);
+  el.classList.add('is-open');
+  el.setAttribute('aria-hidden','false');
+  document.body.classList.add('lock');
+}
+function closeOverlay(el){
+  el.classList.remove('is-open');
+  el.setAttribute('aria-hidden','true');
+  if(!$('.overlay.is-open')) document.body.classList.remove('lock');
+}
+document.addEventListener('click', function(e){
+  var c = e.target.closest('[data-close]');
+  if(c){ closeOverlay(c.closest('.overlay')); }
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){ $$('.overlay.is-open').forEach(closeOverlay); }
+});
+
+$('#trayOpen').addEventListener('click', function(){
+  renderTrayAdd(); renderTrayList(); updateTray();
+  openOverlay('#traySheet');
+});
+
+$('#trayRequest').addEventListener('click', function(){
+  if(trayTotal() === 0) return;
+  var n = trayTotal();
+  tray.clear(); trayGroup = 'drink';
+  $$('#traySeg button').forEach(function(x){ x.classList.toggle('is-active', x.dataset.g === 'drink'); });
+  updateTray();
+  closeOverlay($('#traySheet'));
+  toast('요청 '+n+'건을 보냈어요. 담당 디자이너가 확인합니다');
+});
+
+/* copy */
+document.addEventListener('click', function(e){
+  var b = e.target.closest('[data-copy]'); if(!b) return;
+  var v = b.dataset.copy;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(v).then(function(){ toast('복사했어요'); }, function(){ toast(v); });
+  } else { toast(v); }
+});
+
+/* ── products ─────────────────────────── */
+var PRODUCTS = [
+  ['필멜로우 샴푸','샴푸'], ['필멜로우 트리트먼트','트리트먼트'],
+  ['리페어리티 샴푸','샴푸'], ['리페어리티 트리트먼트','트리트먼트'],
+  ['리페어리티 수페리어 에센스','에센스'],
+  ['퀜치 샴푸','샴푸'], ['퀜치 트리트먼트','트리트먼트'], ['퀜치 세럼','세럼'],
+  ['스무스 샴푸','샴푸'], ['스무스 트리트먼트','트리트먼트'], ['스무스 세럼','세럼'],
+  ['이뮤라이즈 샴푸','샴푸'], ['이뮤라이즈 헤어 트리트먼트 브이','트리트먼트'],
+  ['디오럼 샴푸','샴푸'], ['디오럼 헤어 트리트먼트','트리트먼트'],
+  ['포르티스 루미너스 샷','에센스'],
+  ['익스실드 클리어젤','스타일링'], ['익스실드 리플렉트 세럼','세럼'],
+  ['아틸 샴푸','샴푸'], ['아틸 트리트먼트','트리트먼트'], ['아틸 에센스','에센스'],
+  ['프리세디아 샴푸','샴푸'], ['프리세디아 인텐시브 퍼펙터','트리트먼트']
+];
+
+$('#productList').innerHTML = PRODUCTS.map(function(p){
+  var full = '오주아 '+p[0];
+  return '<div class="prow"><div><p class="p-name">'+p[0]+'</p><p class="p-meta">밀본 오주아 · '+p[1]+'</p></div>'+
+    '<button class="add" data-add="product|'+full+'|상담 후 구매">담기</button></div>';
+}).join('');
+
+/* ── care guide ───────────────────────── */
+var GUIDES = [
+  ['염색','염색 시술 후 관리','선명한 컬러를 위해 48시간은 샴푸를 피해주세요. 미온수 세정과 찬바람 건조가 색감을 오래 유지해 줍니다.'],
+  ['케어','헤어 스파 · 헤드 스파 후 관리','스파 효과를 높이려면 당일 과한 음주나 고온의 사우나는 피하는 편이 좋아요. 수분을 충분히 마시고 두피는 가볍게 찬바람으로 말려주세요.'],
+  ['케어','클리닉 · 트리트먼트 후 관리','채워진 단백질이 유지되도록 약산성 샴푸를 사용하세요. 뜨거운 물보다 미온수로 헹궈야 부드러움이 오래갑니다.'],
+  ['케어','붙임머리 후 관리','샴푸할 때 연결 부위를 강하게 문지르지 말고, 젖은 상태에서 무리하게 빗질하지 마세요. 잠들기 전에는 완전히 말린 뒤 가볍게 묶어 주세요.'],
+  ['펌','아이롱펌 후 관리','탄력 있는 컬을 위해 말릴 때 손가락으로 컬을 돌려 바짝 말려주세요. 열기구 사용은 줄이고 컬 전용 에센스로 수분을 잡아주세요.'],
+  ['펌','뿌리펌 후 관리','볼륨이 가라앉지 않도록 샴푸할 때 뿌리를 강하게 문지르지 마세요. 머리를 숙이고 반대 방향으로 말리면 볼륨이 오래갑니다.'],
+  ['펌','매직 · 스트레이트 후 관리','매끈한 결을 유지하려면 48시간 동안 머리를 묶거나 귀 뒤로 넘기지 마세요. 말릴 때는 위에서 아래로 차분하게 내려주세요.'],
+  ['펌','컬 유지 · 관리','컬이 쉽게 풀리지 않도록 올바른 건조와 제품 사용으로 유지력을 높여보세요. 잠들기 전 가볍게 묶어주면 다음 날 모양이 살아납니다.'],
+  ['펌','시술 후 24시간 관리','컬을 오래 유지하려면 시술 후 하루가 가장 중요해요. 샴푸 시점과 드라이 방향만 지켜도 결과가 달라집니다.'],
+  ['케어','두피케어 · 스케일링 후 관리','시술 당일은 두피가 예민하니 자극을 피해주세요. 완전히 건조하고 두피 토닉을 발라주면 건강한 환경이 유지됩니다.'],
+  ['케어','올바른 샴푸 · 관리','두피 자극을 줄이려면 손톱 대신 손끝으로 문지르고, 거품을 낸 뒤 충분히 헹궈주세요. 헹굼이 부족하면 각질과 냄새의 원인이 됩니다.'],
+  ['케어','홈케어 · 관리','꾸준한 영양 공급과 생활 습관이 두피와 모발을 건강하게 유지합니다. 주 2회 트리트먼트면 충분해요.'],
+  ['케어','드라이 · 스타일링','컬의 형태를 살리려면 물기를 먼저 타월로 제거한 뒤 말려주세요. 뜨거운 바람으로 마무리하고 찬바람으로 고정하면 오래갑니다.'],
+  ['염색','색 빠짐 줄이는 팁','샴푸 횟수와 열기구 사용을 줄이고 자외선을 피해주세요. 컬러 전용 제품을 쓰면 색이 오래 유지됩니다.'],
+  ['염색','염색 컬러 유지 방법','컬러가 빠지지 않도록 샴푸와 열기구 사용을 줄여주세요. 컬러 전용 제품으로 꾸준히 관리하면 색을 더 오래 유지할 수 있습니다.'],
+  ['염색','탈색 후 관리','손상된 모발을 위해 빗질과 열기구 사용을 줄여주세요. 보색 제품과 고농축 팩으로 영양을 채워주세요.']
+];
+
+var guideCat = 'all';
+function renderGuide(){
+  var list = GUIDES.filter(function(g){ return guideCat === 'all' || g[0] === guideCat; });
+  $('#guideList').innerHTML = list.map(function(g){
+    return '<details class="acc-item"><summary><span>'+g[1]+'</span><span class="cnt">'+g[0]+'</span></summary>'+
+      '<p class="prices" style="padding-top:0;color:var(--ink-2);font-size:13px;line-height:1.68">'+g[2]+'</p></details>';
+  }).join('');
+}
+renderGuide();
+
+$('#guideChips').addEventListener('click', function(e){
+  var b = e.target.closest('[data-cat]'); if(!b) return;
+  guideCat = b.dataset.cat;
+  $$('#guideChips .chip').forEach(function(c){ c.classList.toggle('is-active', c.dataset.cat === guideCat); });
+  renderGuide();
+});
+
+/* ── treatment progress ───────────────── */
+var picks = {};
+document.addEventListener('click', function(e){
+  var b = e.target.closest('[data-pick]'); if(!b) return;
+  var group = b.closest('.step').dataset.group;
+  var label = b.textContent.trim();
+  var arr = picks[group] || (picks[group] = []);
+  var i = arr.indexOf(label);
+  if(i >= 0){ arr.splice(i,1); b.classList.remove('on'); }
+  else{ arr.push(label); b.classList.add('on'); }
+  renderSummary();
+});
+function renderSummary(){
+  var parts = [];
+  ['시술 종류','모발 상태','두피 고민','최근 시술 이력'].forEach(function(k){
+    if(picks[k] && picks[k].length) parts.push('<b>'+k+'</b> '+picks[k].join(' · '));
+  });
+  $('#summaryText').innerHTML = parts.length
+    ? parts.join('<br>')
+    : '아직 고른 항목이 없어요. 위에서 하나씩 눌러보세요.';
+}
+$('#progressSend').addEventListener('click', function(){
+  var picked = 0;
+  Object.keys(picks).forEach(function(k){ picked += picks[k].length; });
+  if(!picked){ toast('항목을 하나 이상 골라주세요'); return; }
+  toast('상담 내용을 담당 디자이너에게 전달했어요');
+});
+
+/* ── quiz engine ──────────────────────── */
+var QUIZ = {
+  mbti:{
+    kicker:'HAIR MBTI',
+    qs:[
+      {q:'아침에 거울 앞에서 가장 신경 쓰이는 건?', os:[
+        {t:'볼륨이 금방 죽어 있다', tag:'vol'},
+        {t:'결이 흐트러져 보인다', tag:'slk'},
+        {t:'푸석하고 부스스하다', tag:'dmg'}
+      ]},
+      {q:'지난 1년 동안 염색 · 펌 · 탈색을 한 횟수는?', os:[
+        {t:'3회 이상', tag:'dmg'},
+        {t:'1~2회', tag:'ok'},
+        {t:'거의 없다', tag:'ok'}
+      ]},
+      {q:'드라이 후 원하는 마무리는?', os:[
+        {t:'매끈하게 떨어지는 결', tag:'slk'},
+        {t:'자연스럽게 살아 있는 볼륨', tag:'vol'}
+      ]},
+      {q:'평소 홈케어는 어떻게 하고 있나요?', os:[
+        {t:'제품을 챙겨 쓰는 편', tag:'ok'},
+        {t:'샴푸만 한다', tag:'ok'},
+        {t:'딱히 하지 않는다', tag:'dmg'}
+      ]}
+    ],
+    res:function(ans){
+      var vol=0, slk=0, dmg=0;
+      ans.forEach(function(a){
+        if(!a) return;
+        if(a.tag === 'vol') vol++;
+        if(a.tag === 'slk') slk++;
+        if(a.tag === 'dmg') dmg++;
+      });
+      var wantVol = vol >= slk;
+      var damaged = dmg >= 2;
+      var r;
+      if(wantVol && damaged){
+        r = {code:'V · R', name:'볼륨 리페어형',
+          desc:'볼륨이 필요하지만 손상이 먼저예요. 채우고 나서 띄우는 순서가 맞습니다. 클리닉으로 결을 세운 뒤 뿌리만 살리는 조합을 권해요.',
+          rows:[['추천 시술','BTX 비건 클리닉 150,000원~'],['함께','뿌리볼륨펌 80,000원'],['홈케어','오주아 리페어리티 샴푸']],
+          add:['product|오주아 리페어리티 샴푸|상담 후 구매']};
+      } else if(wantVol && !damaged){
+        r = {code:'V · B', name:'에어리 볼륨형',
+          desc:'모발은 건강한 편이니 볼륨만 잡아주면 됩니다. 무게를 덜어내는 컷과 뿌리 펌이 가장 잘 맞아요.',
+          rows:[['추천 시술','뿌리볼륨펌 80,000원'],['함께','볼륨 웨이브 드라이 45,000원'],['홈케어','오주아 퀜치 세럼']],
+          add:['product|오주아 퀜치 세럼|상담 후 구매']};
+      } else if(!wantVol && damaged){
+        r = {code:'S · R', name:'실크 리페어형',
+          desc:'매끈함을 원한다면 손상된 결부터 정리해야 결과가 오래갑니다. 클리닉 후에 매직이나 다운펌을 얹는 순서를 권해요.',
+          rows:[['추천 시술','오주아 모발클리닉 120,000원'],['함께','[W] 볼륨매직 165,000원'],['홈케어','오주아 리페어리티 트리트먼트']],
+          add:['product|오주아 리페어리티 트리트먼트|상담 후 구매']};
+      } else {
+        r = {code:'S · B', name:'클린 스트레이트형',
+          desc:'결이 건강한 편이라 한 번의 시술로 오래 갑니다. 잔머리와 볼륨만 정리해도 인상이 달라져요.',
+          rows:[['추천 시술','[M] 볼륨매직 135,000원'],['함께','전체 다운펌 60,000원'],['홈케어','오주아 스무스 샴푸']],
+          add:['product|오주아 스무스 샴푸|상담 후 구매']};
+      }
+      return r;
+    }
+  },
+
+  scalp:{
+    kicker:'SCALP CHECK',
+    qs:[
+      {q:'하루 중 머리를 긁고 싶을 때가 있나요?', os:[
+        {t:'거의 없다', v:0}, {t:'가끔 그렇다', v:1}, {t:'자주 그렇다', v:2}
+      ]},
+      {q:'샴푸하고 12시간 안에 기름기가 도나요?', os:[
+        {t:'아니다', v:0}, {t:'보통이다', v:1}, {t:'그렇다', v:2}
+      ]},
+      {q:'두피에 붉은기나 각질이 보이나요?', os:[
+        {t:'없다', v:0}, {t:'가끔 보인다', v:1}, {t:'자주 보인다', v:2}
+      ]},
+      {q:'다음 날 머리 냄새가 신경 쓰이나요?', os:[
+        {t:'아니다', v:0}, {t:'가끔', v:1}, {t:'자주', v:2}
+      ]},
+      {q:'요즘 잠은 충분한가요?', os:[
+        {t:'충분히 잔다', v:0}, {t:'보통이다', v:1}, {t:'부족하다', v:2}
+      ]}
+    ],
+    res:function(ans){
+      var s = 0;
+      ans.forEach(function(a){ if(a) s += a.v; });
+      if(s <= 3){
+        return {code:'SCALP '+s+'/10', name:'쾌적한 두피',
+          desc:'지금 상태를 유지하는 게 목표예요. 주 2~3회 미온수 세정과 두피 위주 헹굼이면 충분합니다.',
+          rows:[['추천 시술','스파샴푸 20,000원'],['주기','두피클리닉 월 1회'],['홈케어','오주아 프리세디아 샴푸']]};
+      }
+      if(s <= 6){
+        return {code:'SCALP '+s+'/10', name:'관찰이 필요한 두피',
+          desc:'각질과 유분이 섞여 보이기 시작한 단계예요. 스케일링으로 한 번 정리하고 두피 토닉으로 균형을 잡아보세요.',
+          rows:[['추천 시술','오주아 두피클리닉 80,000원'],['함께','스파샴푸 20,000원'],['홈케어','오주아 프리세디아 샴푸']]};
+      }
+      return {code:'SCALP '+s+'/10', name:'케어가 필요한 두피',
+        desc:'자극과 붉어짐이 반복되면 시술 전 두피 진정이 먼저예요. 두피클리닉으로 가라앉힌 뒤 염색이나 펌을 권합니다.',
+        rows:[['추천 시술','오주아 두피클리닉 80,000원'],['함께','두피보호제 10,000원'],['홈케어','오주아 프리세디아 샴푸']]};
+    }
+  },
+
+  hairquiz:{
+    kicker:'HAIR QUIZ', mode:'quiz',
+    qs:[
+      {q:'염색 후 샴푸는 언제부터 하는 게 좋을까요?', os:[
+        {t:'바로 해도 된다'}, {t:'12시간 뒤'}, {t:'48시간 뒤', ok:true}
+      ], why:'염색은 48시간 동안 색이 자리 잡습니다.'},
+      {q:'펌 후 24시간 동안 피해야 하는 것은?', os:[
+        {t:'머리 묶기', ok:true}, {t:'미온수 세척'}, {t:'에센스 바르기'}
+      ], why:'묶은 자국이 그대로 굳어 모양이 흐트러집니다.'},
+      {q:'두피 각질에 가장 좋은 습관은?', os:[
+        {t:'손톱으로 긁어내기'}, {t:'미온수로 충분히 헹구기', ok:true}, {t:'뜨거운 물로 씻기'}
+      ], why:'미온수 헹굼이 각질과 유분을 가장 부드럽게 정리합니다.'},
+      {q:'드라이로 모발 손상을 줄이는 방법은?', os:[
+        {t:'젖은 채로 뜨거운 바람'}, {t:'타월로 물기 제거 후 말리기', ok:true}, {t:'최대 온도로 빨리 말리기'}
+      ], why:'물기를 먼저 빼면 열 노출 시간이 크게 줄어듭니다.'},
+      {q:'컬러 유지에 가장 해로운 것은?', os:[
+        {t:'자외선', ok:true}, {t:'미온수 샴푸'}, {t:'약산성 샴푸'}
+      ], why:'자외선은 색소를 직접 분해합니다. 외출 시 모자나 컬러 전용 제품을 쓰세요.'}
+    ],
+    res:function(ans){
+      var score = 0, wrong = [];
+      ans.forEach(function(a, i){
+        if(a && a.ok) score++;
+        else wrong.push({q:this.qs[i].q, why:this.qs[i].why, correct:this.qs[i].os.filter(function(o){return o.ok;})[0].t, mine:a?a.t:'—'});
+      }, this);
+      var title, desc;
+      if(score === 5){ title='헤어 박사'; desc='다섯 문항을 모두 맞혔어요. 지금 습관을 그대로 유지해도 좋습니다.'; }
+      else if(score === 4){ title='거의 다 왔어요'; desc='한 가지만 바꾸면 관리 결과가 확실히 달라집니다.'; }
+      else if(score === 3){ title='절반은 알고 있어요'; desc='알고 있는 것과 매일 하는 것은 다르죠. 아래 두 가지만 먼저 바꿔보세요.'; }
+      else { title='기본부터 다시'; desc='시술 후 관리만 지켜도 모발 상태가 크게 달라집니다. 아래 정답을 참고하세요.'; }
+      return {score:score, title:title, desc:desc, wrong:wrong};
+    }
+  }
+};
+
+var QS = null;
+
+function openQuiz(id){
+  var cfg = QUIZ[id];
+  QS = {id:id, cfg:cfg, i:0, ans:[]};
+  $('#quizKicker').textContent = cfg.kicker;
+  $('#quizBack').style.visibility = 'hidden';
+  renderQuiz();
+  openOverlay('#quizSheet');
+}
+
+function renderQuiz(){
+  if(!QS) return;
+  var cfg = QS.cfg, i = QS.i, total = cfg.qs.length;
+  var body = $('#quizBody'), foot = $('#quizFoot');
+  $('#quizBar').style.width = Math.min(100, (i/total)*100) + '%';
+  $('#quizBack').style.visibility = i > 0 ? 'visible' : 'hidden';
+  $('#quizSheet .panel-body').scrollTop = 0;
+
+  if(i < total){
+    var q = cfg.qs[i];
+    body.innerHTML =
+      '<p class="q-count">'+(i+1)+' / '+total+'</p>'+
+      '<h2 class="q-title">'+q.q+'</h2>'+
+      '<div class="opts">'+ q.os.map(function(o,k){
+        return '<button class="opt" data-o="'+k+'"><span>'+o.t+'</span><i>›</i></button>';
+      }).join('') +'</div>';
+    foot.innerHTML = '<button class="btn ghost" data-close>그만하기</button>';
+    return;
+  }
+
+  /* result */
+  $('#quizBar').style.width = '100%';
+  var r = cfg.res(QS.ans);
+  var html = '';
+
+  if(cfg.mode === 'quiz'){
+    html += '<p class="q-count">결과</p>'+
+      '<div class="score-big">'+r.score+'<small>/ '+total+'</small></div>'+
+      '<h2 class="q-title" style="margin-top:6px">'+r.title+'</h2>'+
+      '<p class="result-desc">'+r.desc+'</p>';
+    if(r.wrong.length){
+      html += '<div class="review">'+ r.wrong.map(function(w){
+        return '<div class="rev"><p class="rev-q">'+w.q+'</p>'+
+          '<p class="rev-a wrong">내 답 · '+w.mine+'</p>'+
+          '<p class="rev-a">정답 · '+w.correct+'</p>'+
+          '<p class="rev-q" style="margin-top:4px">'+w.why+'</p></div>';
+      }).join('') +'</div>';
+    }
+    foot.innerHTML = '<button class="btn" data-restart>다시 하기</button>';
+  } else {
+    html += '<div class="result-card">'+
+      '<p class="result-code">'+r.code+'</p>'+
+      '<h2 class="result-name">'+r.name+'</h2>'+
+      '<p class="result-desc">'+r.desc+'</p>'+
+      '<div class="result-rows">'+ r.rows.map(function(row){
+        return '<div class="rrow"><span>'+row[0]+'</span><span>'+row[1]+'</span></div>';
+      }).join('') +'</div></div>';
+    foot.innerHTML = '<div class="result-actions">'+
+      '<button class="btn ghost" data-restart>다시 하기</button>'+
+      (r.add ? '<button class="btn" data-add="'+r.add[0]+'">홈케어 담기</button>' : '<button class="btn" data-close>닫기</button>')+
+      '</div>';
+  }
+  body.innerHTML = html;
+}
+
+$('#quizBody').addEventListener('click', function(e){
+  var b = e.target.closest('.opt');
+  if(!b || !QS) return;
+  var k = +b.dataset.o;
+  var q = QS.cfg.qs[QS.i];
+  var picked = q.os[k];
+  QS.ans[QS.i] = picked;
+
+  if(QS.cfg.mode === 'quiz'){
+    var ok = !!picked.ok;
+    $$('.opt', $('#quizBody')).forEach(function(o){
+      if(o === b){ o.classList.add(ok ? 'ok' : 'no'); }
+      else{ o.classList.add('mute'); }
+      o.disabled = true;
+    });
+    setTimeout(function(){ QS.i++; renderQuiz(); }, ok ? 620 : 900);
+  } else {
+    b.classList.add('sel');
+    setTimeout(function(){ QS.i++; renderQuiz(); }, 190);
+  }
+});
+
+document.addEventListener('click', function(e){
+  if(e.target.closest('#quizBack')){
+    if(QS && QS.i > 0){ QS.i--; renderQuiz(); }
+    return;
+  }
+  if(e.target.closest('[data-restart]')){
+    if(QS){ QS.i = 0; QS.ans = []; renderQuiz(); }
+  }
+});
+
+document.addEventListener('click', function(e){
+  var b = e.target.closest('[data-quiz]');
+  if(!b) return;
+  openQuiz(b.dataset.quiz);
+});
+
+/* keep tray sheet state fresh on first paint */
+renderTrayAdd();
+updateTray();
+})();
+</script>
+</body>
+</html>
