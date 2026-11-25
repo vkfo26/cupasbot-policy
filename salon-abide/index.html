@@ -400,7 +400,7 @@ button:disabled{cursor:default}
             <div class="tarot" id="tarot" role="button" tabindex="0" aria-label="오늘의 타로 카드 뒤집기">
               <div class="tarot-inner">
                 <div class="tarot-face tarot-front">
-                  <span class="tarot-mark">✳</span>
+                  <span class="tarot-mark">✦</span>
                   <span class="tarot-hint">탭해서 오늘의 카드를 열어보세요</span>
                 </div>
                 <div class="tarot-face tarot-back">
@@ -789,7 +789,7 @@ function chipHTML(list, active, attr){
 }
 
 $('#zodiacChips').innerHTML = chipHTML(ZODIAC.map(function(z){ return z.n+'띠'; }), 0, 'z');
-$('#rashiChips').innerHTML = chipHTML(RASHI.map(function(r){ return r.g+' '+r.n; }), 0, 'r');
+$('#rashiChips').innerHTML = chipHTML(RASHI.map(function(r){ return r.n; }), 0, 'r');
 
 function cardHTML(sign, sub, score, line, body){
   return '<div class="f-top"><span class="f-sign">'+sign+(sub?'<small>'+sub+'</small>':'')+'</span>'+
@@ -812,7 +812,7 @@ function renderZodiac(){
 }
 function renderRashi(){
   var r = RASHI[rIdx];
-  paint($('#rashiCard'), cardHTML('<span style="font-size:15px">'+r.g+'</span> '+r.n, r.d, r.s, r.l, r.b));
+  paint($('#rashiCard'), cardHTML(r.n, r.d, r.s, r.l, r.b));
 }
 
 renderZodiac();
