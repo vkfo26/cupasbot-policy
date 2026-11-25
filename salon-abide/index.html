@@ -250,7 +250,6 @@ button:disabled{cursor:default}
 
 /* tray sheet */
 .tseg{margin-top:4px}
-#trayAdd{padding:14px 0 6px}
 #trayAdd{padding:14px 0 8px;gap:6px}
 .tray-list{padding-top:6px}
 .trow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;
@@ -1232,6 +1231,7 @@ function openQuiz(id){
   var cfg = QUIZ[id];
   QS = {id:id, cfg:cfg, i:0, ans:[]};
   $('#quizKicker').textContent = cfg.kicker;
+  $('#quizSheet .panel').classList.add('tall');
   renderQuiz();
   openOverlay('#quizSheet');
 }
@@ -1242,6 +1242,8 @@ function renderQuiz(){
   var body = $('#quizBody'), foot = $('#quizFoot');
   $('#quizBar').style.width = Math.min(100, (i/total)*100) + '%';
   $('#quizBack').classList.toggle('show', i > 0);
+  $('#quizBack').setAttribute('aria-hidden', i > 0 ? 'false' : 'true');
+  $('#quizSheet .panel').classList.toggle('tall', i < total);
   $('#quizSheet .panel-body').scrollTop = 0;
 
   if(i < total){
