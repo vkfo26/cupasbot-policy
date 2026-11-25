@@ -55,7 +55,7 @@ button:disabled{cursor:default}
 .tab.is-active{background:var(--ink);color:#fff}
 
 /* ── views ──────────────────────────────── */
-.view{display:none;padding:0 20px}
+.view{display:none;padding:6px 20px 0}
 .view.is-active{display:block;animation:fade .28s ease both}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
@@ -110,7 +110,7 @@ button:disabled{cursor:default}
   background:#fff;font-size:12.5px;font-weight:550;color:var(--ink-2);scroll-snap-align:center;
   transition:background .16s,color .16s,border-color .16s}
 .chip.is-active{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:650}
-.chips.wrap{flex-wrap:wrap;overflow:visible;margin:0;padding:14px 0 4px}
+.tagrow{display:flex;flex-wrap:wrap;align-items:flex-start;align-content:flex-start;gap:7px;padding:14px 0 4px}
 
 /* fortune card */
 .fortune{border:1px solid var(--line);border-radius:var(--r);padding:19px 19px 16px;background:#fff}
@@ -137,6 +137,7 @@ button:disabled{cursor:default}
 .tarot-hint{position:absolute;bottom:26px;left:0;right:0;padding:0 22px;font-size:10.5px;line-height:1.5;
   color:rgba(255,255,255,.5)}
 .tarot-back{background:#fff;border:1px solid var(--line);transform:rotateY(180deg);padding:24px 22px;color:var(--ink)}
+.tarot-back::before{content:"";position:absolute;inset:9px;border:1px solid var(--line);border-radius:11px;pointer-events:none}
 .tarot-no{font-size:10px;font-weight:650;letter-spacing:.22em;color:var(--ink-3)}
 .tarot-name{margin-top:10px;font-size:15px;font-weight:700;letter-spacing:-0.01em}
 .tarot-msg{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;line-height:1.7;color:var(--ink-2);text-align:left}
@@ -190,7 +191,7 @@ button:disabled{cursor:default}
 .step{background:var(--surface);border-radius:var(--r);padding:16px;margin-bottom:9px}
 .step-n{font-size:10px;font-weight:650;letter-spacing:.14em;color:var(--ink-3)}
 .step-t{margin-top:5px;font-size:14px;font-weight:700;letter-spacing:-0.02em}
-.step .chips.wrap{padding:12px 0 0;gap:6px}
+.step .tagrow{padding:12px 0 0;gap:6px}
 .chip.sm{height:31px;padding:0 11px;font-size:12px}
 .chip.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:650}
 .summary{border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-top:14px}
@@ -250,7 +251,7 @@ button:disabled{cursor:default}
 /* tray sheet */
 .tseg{margin-top:4px}
 #trayAdd{padding:14px 0 6px}
-.wrap-chips{flex-wrap:wrap;overflow:visible;margin:0}
+#trayAdd{padding:14px 0 8px;gap:6px}
 .tray-list{padding-top:6px}
 .trow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;
   border-bottom:1px solid var(--line)}
@@ -269,7 +270,9 @@ button:disabled{cursor:default}
 .quiz-head{position:relative;justify-content:center}
 .quiz-head .close{position:absolute;right:18px;top:12px}
 .back{position:absolute;left:14px;top:12px;width:30px;height:30px;font-size:19px;color:var(--ink-2);
-  display:flex;align-items:center;justify-content:center;line-height:1}
+  display:flex;align-items:center;justify-content:center;line-height:1;opacity:0;pointer-events:none;
+  transition:opacity .18s}
+.back.show{opacity:1;pointer-events:auto}
 .quiz-kicker{font-size:10px;font-weight:650;letter-spacing:.17em;color:var(--ink-3)}
 .progress{height:2px;background:var(--surface);margin:0 18px;border-radius:2px;overflow:hidden;flex:0 0 auto}
 .progress i{display:block;height:100%;width:0;background:var(--ink);transition:width .32s ease}
@@ -515,7 +518,7 @@ button:disabled{cursor:default}
 
       <section class="section">
         <div class="sec-head"><h2 class="sec-title">음료 · 서비스</h2><span class="sec-meta">눌러서 담기</span></div>
-        <div class="chips wrap" id="quickAdd">
+        <div class="tagrow" id="quickAdd">
           <button class="chip" data-add="drink|생수|무료">생수</button>
           <button class="chip" data-add="drink|아메리카노|ICE · HOT">아메리카노</button>
           <button class="chip" data-add="drink|믹스커피|ICE · HOT">믹스커피</button>
@@ -573,7 +576,7 @@ button:disabled{cursor:default}
         <div class="step" data-group="시술 종류">
           <p class="step-n">STEP 1</p>
           <p class="step-t">오늘 받고 싶은 시술</p>
-          <div class="chips wrap">
+          <div class="tagrow">
             <button class="chip sm" data-pick>커트</button>
             <button class="chip sm" data-pick>펌</button>
             <button class="chip sm" data-pick>염색</button>
@@ -583,7 +586,7 @@ button:disabled{cursor:default}
         <div class="step" data-group="모발 상태">
           <p class="step-n">STEP 2</p>
           <p class="step-t">지금 모발 상태</p>
-          <div class="chips wrap">
+          <div class="tagrow">
             <button class="chip sm" data-pick>매우 건강</button>
             <button class="chip sm" data-pick>보통</button>
             <button class="chip sm" data-pick>약간 손상</button>
@@ -594,7 +597,7 @@ button:disabled{cursor:default}
         <div class="step" data-group="두피 고민">
           <p class="step-n">STEP 3</p>
           <p class="step-t">두피에서 신경 쓰이는 것</p>
-          <div class="chips wrap">
+          <div class="tagrow">
             <button class="chip sm" data-pick>가려움</button>
             <button class="chip sm" data-pick>따가움</button>
             <button class="chip sm" data-pick>붉어짐</button>
@@ -605,7 +608,7 @@ button:disabled{cursor:default}
         <div class="step" data-group="최근 시술 이력">
           <p class="step-n">STEP 4</p>
           <p class="step-t">최근 6개월 시술 이력</p>
-          <div class="chips wrap">
+          <div class="tagrow">
             <button class="chip sm" data-pick>염색</button>
             <button class="chip sm" data-pick>펌</button>
             <button class="chip sm" data-pick>탈색</button>
@@ -652,7 +655,7 @@ button:disabled{cursor:default}
         <button data-g="service">서비스</button>
         <button data-g="product">제품</button>
       </div>
-      <div class="chips wrap wrap-chips" id="trayAdd"></div>
+      <div class="tagrow" id="trayAdd"></div>
       <div class="tray-list" id="trayList"></div>
     </div>
     <div class="panel-foot">
@@ -717,6 +720,15 @@ function switchView(name){
   $$('.view').forEach(function(v){ v.classList.toggle('is-active', v.dataset.view === name); });
   window.scrollTo(0,0);
 }
+
+/* keep the active tab visible on narrow screens */
+(function(){
+  var active = $('.tab.is-active');
+  if(active && tabs.scrollWidth > tabs.clientWidth){
+    var offset = (active.offsetLeft - tabs.offsetLeft) - (tabs.clientWidth - active.offsetWidth) / 2;
+    tabs.scrollLeft = Math.max(0, offset);
+  }
+})();
 
 /* header hairline */
 window.addEventListener('scroll', function(){
@@ -1220,7 +1232,6 @@ function openQuiz(id){
   var cfg = QUIZ[id];
   QS = {id:id, cfg:cfg, i:0, ans:[]};
   $('#quizKicker').textContent = cfg.kicker;
-  $('#quizBack').style.visibility = 'hidden';
   renderQuiz();
   openOverlay('#quizSheet');
 }
@@ -1230,7 +1241,7 @@ function renderQuiz(){
   var cfg = QS.cfg, i = QS.i, total = cfg.qs.length;
   var body = $('#quizBody'), foot = $('#quizFoot');
   $('#quizBar').style.width = Math.min(100, (i/total)*100) + '%';
-  $('#quizBack').style.visibility = i > 0 ? 'visible' : 'hidden';
+  $('#quizBack').classList.toggle('show', i > 0);
   $('#quizSheet .panel-body').scrollTop = 0;
 
   if(i < total){
